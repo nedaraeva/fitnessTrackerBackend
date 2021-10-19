@@ -4,14 +4,51 @@ const client = require('./client');
 
 async function dropTables() {
   console.log('Dropping All Tables...');
-  // drop all tables, in the correct order
+  try {
+    console.log('Starting to drop tables...');
+    
+    client.query(`
+      DROP TABLE IF EXISTS;
+      DROP TABLE IF EXISTS;
+    `);
 
+    console.log('Finished dropping tables!');
+  } catch (error) {
+    console.error('Error while dropping tables!');
+
+    throw error;
+  }
 }
 
 async function createTables() {
   console.log("Starting to build tables...");
-  // create all tables, in the correct order
+  try {
+    console.log('Starting to construct tables...');
 
+    await client.query(`
+      CREATE TABLE reports(
+        // id SERIAL PRIMARY KEY,
+        // title varchar(255) NOT NULL,
+        // location VARCHAR(255) NOT NULL,
+        // description TEXT NOT NULL,
+        // password VARCHAR(255) NOT NULL,
+        // "isOpen" BOOLEAN DEFAULT true,
+        // "expirationDate" TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP + interval '1 day'
+      );
+
+      CREATE TABLE comments(
+        // id SERIAL PRIMARY KEY,
+        // "reportId" INTEGER REFERENCES reports(id),
+        // content TEXT NOT NULL
+      )
+    `);
+
+    console.log('Finished constructing tables!');
+  } catch (error) {
+    console.error('Error constructing tables!');
+
+    throw error;
+  }
 }
 
 /* 
