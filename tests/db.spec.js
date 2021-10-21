@@ -42,7 +42,7 @@ describe('Database', () => {
         expect(userToCreateAndUpdate.password).toBeFalsy();
       })
     })
-    xdescribe('getUser({ username, password })', () => {
+    describe('getUser({ username, password })', () => {
       let verifiedUser;
       beforeAll(async () => {
         verifiedUser = await getUser(userCredentials);

@@ -8,6 +8,6 @@ const client = new Client({
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : undefined,
 });
 
-module.exports = client
+module.exports = client;
   
   
