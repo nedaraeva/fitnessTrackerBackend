@@ -9,6 +9,8 @@ async function dropTables() {
     
     await client.query(`
       DROP TABLE IF EXISTS users;
+      DROP TABLE IF EXISTS activities;
+      DROP TABLE IF EXISTS routines;
     `);
 
     console.log('Finished dropping tables!');
@@ -29,6 +31,11 @@ async function createTables() {
         id SERIAL PRIMARY KEY,
         username	VARCHAR(255) UNIQUE NOT NULL,
         password VARCHAR(255) NOT NULL
+      );
+      CREATE TABLE activities(
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(255) UNIQUE NOT NULL,
+        description TEXT NOT NULL
       );
     `);
 

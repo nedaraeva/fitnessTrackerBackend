@@ -57,7 +57,7 @@ describe('Database', () => {
         expect(verifiedUser.password).toBeFalsy();
       })
     })
-    xdescribe('getUserById', () => {
+    describe('getUserById', () => {
       it('Gets a user based on the user Id', async () => {
         const user = await getUserById(userToCreateAndUpdate.id);
         expect(user).toBeTruthy();
@@ -65,7 +65,7 @@ describe('Database', () => {
       })
     })
   })
-  xdescribe('Activities', () => {
+  describe('Activities', () => {
     describe('getAllActivities', () => {
       it('selects and returns an array of all activities', async () => {
         const activities = await getAllActivities();
@@ -75,7 +75,7 @@ describe('Database', () => {
         expect(activities).toEqual(activitiesFromDatabase);
       })
     })
-    xdescribe('createActivity({ name, description })', () => {
+    describe('createActivity({ name, description })', () => {
       it('Creates and returns the new activity', async () => {
         const activityToCreate = { name: 'elliptical', description: 'using the elliptical machine' };
         const createdActivity = await createActivity(activityToCreate);
@@ -83,7 +83,7 @@ describe('Database', () => {
         expect(createdActivity.description).toBe(activityToCreate.description);
       })
     })
-    xdescribe('updateActivity', () => {
+    describe('updateActivity', () => {
       it('Updates name and description of an activity without affecting the ID. Returns the updated Activity.', async () => {
         const [activityToUpdate] = await getAllActivities();
         activityToUpdate.name = 'standing barbell curl';
@@ -92,7 +92,7 @@ describe('Database', () => {
       })
     })
   })
-  xdescribe('Routines', () => {
+  describe('Routines', () => {
     let routineToCreateAndUpdate;
     describe('getActivityById', () => {
       it('gets activities by their id', async () => {
