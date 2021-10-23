@@ -35,6 +35,32 @@ async function createRoutine({ creatorId, isPublic, name, goal  }) {
     }
 }
 
+async function getAllRoutines() {
+  try{const { rows } = await client.query(`
+SELECT id, "creatorId", "isPublic", name, goal, 
+  FROM routines;`);
+  console.log("activities", rows);
+
+  return rows;
+} catch(error){
+  console.error(error)
+  throw error
+}
+}
+
+
+async function getAllPublicRoutines() {
+  try{const { rows } = await client.query(`
+SELECT id, "creatorId", "isPublic", name, goal
+  FROM routines;`);
+
+  return rows;
+} catch(error){
+  console.error(error)
+  throw error
+}
+}
+
 async function destroyRoutine(id) {
 
     try {
@@ -49,4 +75,4 @@ async function destroyRoutine(id) {
     }
     }
 
-module.exports = {createRoutine, getRoutineById, destroyRoutine}
+module.exports = {createRoutine, getRoutineById, getAllRoutines, getAllPublicRoutines, destroyRoutine};

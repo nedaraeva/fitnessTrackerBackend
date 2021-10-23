@@ -100,7 +100,7 @@ describe('Database', () => {
         expect(activity).toBeTruthy();
       })
     })
-    describe('getAllRoutines', () => {
+    xdescribe('getAllRoutines', () => {
       let routine;
       beforeAll(async() => {
         [routine] = await getAllRoutines();
