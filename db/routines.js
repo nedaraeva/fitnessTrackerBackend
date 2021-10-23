@@ -1,4 +1,5 @@
 const client = require('./client');
+const {attachActivitiesToRoutines} = require('./');
 
 async function createRoutine({ creatorId, isPublic, name, goal  }) {
     try {
@@ -61,6 +62,30 @@ SELECT id, "creatorId", "isPublic", name, goal
 }
 }
 
+async function getAllRoutinesByUser(user) {
+  
+
+  try{
+      const {rows: routine} = await client.query(`
+      SELECT routines.*, 
+      users.username as "creatorName"
+      FROM routines
+      JOIN users on routines."creatorId" = users.id
+      WHERE "creatorId"=$1
+    `, [user.id]);
+
+    console.log("Workout", attachActivitiesToRoutines);
+
+    // const DailyRoutine =  await attachActivitiesToRoutines(routine);
+
+      return routine;
+
+  }catch(error){
+      console.error(error)
+      throw error
+  }
+}
+
 async function destroyRoutine(id) {
 
     try {
@@ -75,4 +100,4 @@ async function destroyRoutine(id) {
     }
     }
 
-module.exports = {createRoutine, getRoutineById, getAllRoutines, getAllPublicRoutines, destroyRoutine};
+module.exports = {createRoutine, getRoutineById, getAllRoutines, getAllPublicRoutines, getAllRoutinesByUser, destroyRoutine};

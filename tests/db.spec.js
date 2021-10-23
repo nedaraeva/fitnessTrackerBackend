@@ -105,7 +105,7 @@ describe('Database', () => {
       beforeAll(async() => {
         [routine] = await getAllRoutines();
       })
-      it('selects and returns an array of all routines, includes their activities', async () => {
+      xit('selects and returns an array of all routines, includes their activities', async () => {
         expect(routine).toEqual(expect.objectContaining({
           id: expect.any(Number),
           creatorId: expect.any(Number),
@@ -128,7 +128,7 @@ describe('Database', () => {
         }));
       })
     })
-    describe('getAllPublicRoutines', () => {
+    xdescribe('getAllPublicRoutines', () => {
       let routine;
       beforeAll(async() => {
         [routine] = await getAllPublicRoutines();
@@ -163,7 +163,7 @@ describe('Database', () => {
         user = await getUserById(1); 
         [routine] = await getAllRoutinesByUser(user);
       })
-      it('selects and return an array of all routines made by user, includes their activities', async () => {
+      xit('selects and return an array of all routines made by user, includes their activities', async () => {
         expect(routine).toEqual(expect.objectContaining({
           id: expect.any(Number),
           creatorId: expect.any(Number),

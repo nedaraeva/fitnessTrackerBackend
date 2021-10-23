@@ -10,6 +10,7 @@ async function dropTables() {
     console.log('Starting to drop tables...');
     
     await client.query(`
+    DROP TABLE IF EXISTS routine_activities;
       DROP TABLE IF EXISTS routines;
       DROP TABLE IF EXISTS users;
       DROP TABLE IF EXISTS activities;
@@ -47,6 +48,13 @@ async function createTables() {
       name VARCHAR(255) UNIQUE NOT NULL,
       goal TEXT NOT NULL
       );
+      CREATE TABLE routine_activities (	
+      id	SERIAL	PRIMARY KEY,
+      "routineId"	INTEGER	REFERENCES routines(id),
+      "activityId"	INTEGER	REFERENCES activities(id),
+      duration	INTEGER,
+      count	INTEGER
+        );
     `);
 
     console.log('Finished constructing tables!');
@@ -204,7 +212,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialActivities();
     await createInitialRoutines();
-    // await createInitialRoutineActivities();
+   // await createInitialRoutineActivities();
   } catch (error) {
     console.log('Error during rebuildDB')
     throw error;
