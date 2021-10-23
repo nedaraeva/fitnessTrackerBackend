@@ -248,7 +248,7 @@ describe('Database', () => {
         }));
       })
     })
-    xdescribe('createRoutine', () => {
+    describe('createRoutine', () => {
       it('creates and returns the new routine', async () => {
         routineToCreateAndUpdate = await createRoutine({creatorId: 2, isPublic: true, name: 'BodyWeight Day', goal: 'Do workouts that can be done from home, no gym or weights required.'});
         const queriedRoutine = await getRoutineById(routineToCreateAndUpdate.id)
@@ -281,7 +281,7 @@ describe('Database', () => {
       })
       
     })
-    xdescribe('destroyRoutine', () => {
+    describe('destroyRoutine', () => {
       it('removes routine from database', async () => {
         await destroyRoutine(routineToCreateAndUpdate.id);
         const {rows: [routine]} = await client.query(`

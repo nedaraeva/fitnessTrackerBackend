@@ -38,4 +38,17 @@ async function updateActivity ({id, name, description}){
     }
 }
 
-module.exports = { client, createActivity, getAllActivities, updateActivity};
+async function getActivityById(id) {
+    try {
+        const { rows: [ activity ] } = await client.query(`
+        SELECT * FROM activities
+        Where id = $1;
+        `, [ id] )
+
+        return activity;
+    } catch (error) {
+        throw error;
+    }
+}
+
+module.exports = { client, createActivity, getAllActivities, updateActivity, getActivityById};
