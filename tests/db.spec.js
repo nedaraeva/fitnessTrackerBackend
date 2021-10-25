@@ -163,7 +163,7 @@ describe('Database', () => {
         user = await getUserById(1); 
         [routine] = await getAllRoutinesByUser(user);
       })
-      xit('selects and return an array of all routines made by user, includes their activities', async () => {
+      it('selects and return an array of all routines made by user, includes their activities', async () => {
         expect(routine).toEqual(expect.objectContaining({
           id: expect.any(Number),
           creatorId: expect.any(Number),
@@ -179,7 +179,7 @@ describe('Database', () => {
           creatorName: expect.any(String),
         }));
       })
-      it('includes duration and count on activities, from routine_activities join', async () => {
+      xit('includes duration and count on activities, from routine_activities join', async () => {
         const {activities: [firstActivity]} = routine;
         expect(firstActivity).toEqual(expect.objectContaining({
           duration: expect.any(Number),
@@ -297,7 +297,7 @@ describe('Database', () => {
       })
     })
   })
-  xdescribe('Routine Activities', () => {
+  describe('Routine Activities', () => {
     const routineActivityData = {
       routineId: 4,
       activityId: 8,
@@ -305,7 +305,7 @@ describe('Database', () => {
       duration: 10000 
     }
     let routineActivityToCreateAndUpdate;
-    xdescribe('addActivityToRoutine({ routineId, activityId, count, duration })', () => {
+    describe('addActivityToRoutine({ routineId, activityId, count, duration })', () => {
       it('creates a new routine_activity, and return it', async () => {
         routineActivityToCreateAndUpdate = await addActivityToRoutine(routineActivityData);
         
@@ -324,7 +324,7 @@ describe('Database', () => {
         expect(routineActivityToCreateAndUpdate.duration).toBe(newRoutineActivityData.duration);
       })
     })
-    xdescribe('destroyRoutineActivity(id)', () => {
+    describe('destroyRoutineActivity(id)', () => {
       it('remove routine_activity from database', async () => {
         const deletedRoutine = await destroyRoutineActivity(routineActivityToCreateAndUpdate.id);
         expect(deletedRoutine.id).toBe(routineActivityToCreateAndUpdate.id);
