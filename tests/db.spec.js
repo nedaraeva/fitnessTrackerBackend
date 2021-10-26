@@ -100,12 +100,12 @@ describe('Database', () => {
         expect(activity).toBeTruthy();
       })
     })
-    xdescribe('getAllRoutines', () => {
+    describe('getAllRoutines', () => {
       let routine;
       beforeAll(async() => {
         [routine] = await getAllRoutines();
       })
-      xit('selects and returns an array of all routines, includes their activities', async () => {
+      it('selects and returns an array of all routines, includes their activities', async () => {
         expect(routine).toEqual(expect.objectContaining({
           id: expect.any(Number),
           creatorId: expect.any(Number),
@@ -128,7 +128,7 @@ describe('Database', () => {
         }));
       })
     })
-    xdescribe('getAllPublicRoutines', () => {
+    describe('getAllPublicRoutines', () => {
       let routine;
       beforeAll(async() => {
         [routine] = await getAllPublicRoutines();
@@ -187,7 +187,7 @@ describe('Database', () => {
         }));
       })
     })
-    xdescribe('getPublicRoutinesByUser', () => {
+    describe('getPublicRoutinesByUser', () => {
       let routine, user;
       beforeAll(async() => {
         user = await getUserById(1); 
@@ -218,7 +218,7 @@ describe('Database', () => {
         }));
       })
     })
-    xdescribe('getPublicRoutinesByActivity', () => {
+    describe('getPublicRoutinesByActivity', () => {
       let routine, activity;
       beforeAll(async() => {
         activity = await getActivityById(3); 
@@ -255,7 +255,7 @@ describe('Database', () => {
         expect(routineToCreateAndUpdate).toEqual(queriedRoutine);
       })
     })
-    xdescribe('updateRoutine', () => {
+    describe('updateRoutine', () => {
       let queriedRoutine;
       beforeAll(async() => {
         routineToCreateAndUpdate = await updateRoutine({id: routineToCreateAndUpdate.id, isPublic: false, name: 'Arms Day', goal: 'Do all workouts that work those arms!'});
@@ -315,7 +315,7 @@ describe('Database', () => {
         expect(routineActivityToCreateAndUpdate.duration).toBe(routineActivityData.duration);
       })
     })
-    xdescribe('updateRoutineActivity({ id, count, duration })', () => {
+    describe('updateRoutineActivity({ id, count, duration })', () => {
       it('Finds the routine with id equal to the passed in id. Updates the count or duration as necessary.', async () => {
         const newRoutineActivityData = {id: routineActivityToCreateAndUpdate.id, count: 15, duration: 150};
         routineActivityToCreateAndUpdate = await updateRoutineActivity(newRoutineActivityData);
