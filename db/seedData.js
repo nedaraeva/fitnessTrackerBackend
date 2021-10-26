@@ -1,5 +1,5 @@
 // require in the database adapter functions as you write them (createUser, createActivity...)
-const {createUser, createActivity, createRoutine} = require('./');
+const {createUser, createActivity, createRoutine, getRoutinesWithoutActivities, addActivityToRoutine, getAllActivities} = require('./');
 
 
 const client = require('./client');
@@ -50,10 +50,10 @@ async function createTables() {
       );
       CREATE TABLE routine_activities (	
       id	SERIAL	PRIMARY KEY,
-      "routineId"	INTEGER	REFERENCES routines(id),
+      "routineId"	INTEGER	REFERENCES routines(id), 
       "activityId"	INTEGER	REFERENCES activities(id),
       duration	INTEGER,
-      count	INTEGER
+      count	INTEGER, UNIQUE ("routineId", "activityId")
         );
     `);
 
@@ -212,7 +212,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialActivities();
     await createInitialRoutines();
-   // await createInitialRoutineActivities();
+   await createInitialRoutineActivities();
   } catch (error) {
     console.log('Error during rebuildDB')
     throw error;

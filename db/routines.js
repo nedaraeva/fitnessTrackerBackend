@@ -71,14 +71,15 @@ async function getAllRoutinesByUser(user) {
       users.username as "creatorName"
       FROM routines
       JOIN users on routines."creatorId" = users.id
-      WHERE "creatorId"=$1
-    `, [user.id]);
+      WHERE users.username =$1
+    `, [user.username]);
 
-    //console.log("Workout", attachActivitiesToRoutines);
+      const routine_activitiesGoal = await attachActivitiesToRoutines(routine);
+      console.log(routine_activitiesGoal);
 
-    // const DailyRoutine =  await attachActivitiesToRoutines(routine);
-
-      return attachActivitiesToRoutines(routine);
+      return routine_activitiesGoal;
+    
+      
 
   }catch(error){
       console.error(error)
@@ -110,6 +111,21 @@ async function getpublicRoutinesByUser(user) {
   }
 }
 
+async function getRoutinesWithoutActivities(){
+  try{const {rows: routine} = await client.query(`
+  SELECT *
+  FROM ROUTINES`)
+
+  return routine;
+
+  
+}catch(error){
+  console.error(error)
+  throw error
+}
+
+}
+
 async function destroyRoutine(id) {
 
     try {
@@ -118,10 +134,15 @@ async function destroyRoutine(id) {
         WHERE id = $1;
       `, [id])
     
+      await client.query(`
+      DELETE FROM routine_activities
+      WHERE "routineId" = $1;
+    `, [id])
+      
     } catch(error) {
       console.log(error)
       throw error
     }
     }
 
-module.exports = {createRoutine, getRoutineById, getAllRoutines, getAllPublicRoutines, getAllRoutinesByUser, destroyRoutine};
+module.exports = {createRoutine, getRoutineById, getAllRoutines, getRoutinesWithoutActivities, getAllPublicRoutines, getAllRoutinesByUser, getpublicRoutinesByUser, destroyRoutine};

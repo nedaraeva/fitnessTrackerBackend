@@ -179,7 +179,7 @@ describe('Database', () => {
           creatorName: expect.any(String),
         }));
       })
-      xit('includes duration and count on activities, from routine_activities join', async () => {
+      it('includes duration and count on activities, from routine_activities join', async () => {
         const {activities: [firstActivity]} = routine;
         expect(firstActivity).toEqual(expect.objectContaining({
           duration: expect.any(Number),
