@@ -1,7 +1,6 @@
 const express = require('express');
-const routinesRouter = express.Router();
+const routine_activitiesRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET = 'neverTell' } = process.env;
 
-
-module.exports = routinesRouter;
+module.exports = routine_activitiesRouter;
