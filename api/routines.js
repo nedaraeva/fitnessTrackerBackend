@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const { JWT_SECRET = 'neverTell' } = process.env;
 const {requireuser} = require('./ulities')
 
-const {getAllPublicRoutines, createRoutine, getRoutineById, updateRoutine} = require("../db")
+const {getAllPublicRoutines, createRoutine, getRoutineById, updateRoutine, destroyRoutine, addActivityToRoutine, getRoutineActivitiesByRoutine, updateActivity} = require("../db")
 
 routinesRouter.get("/", async (req, res, next) => {
     try {
@@ -52,5 +52,43 @@ routinesRouter.post('/', requireuser, async (req, res, next) => {
             next(error)
         }
         });  
+
+        routinesRouter.delete('/:routineId', async (req, res, next) => {
+            const { routineId } = req.params;
+            
+            try {
+                const ReplacedRoutine = await destroyRoutine(routineId);
+                res.send(ReplacedRoutine);
+            } catch (error) {
+                next(error)
+            }
+            });
+    
+            routinesRouter.post('/:routineId/activities', requireuser, async (req, res, next) => {
+                const { activityId, count, duration} = req.body;
+                const routineId = req.params.routineId;
+            
+                try {
+                    const UpdatedRoutineActivities = await getRoutineActivitiesByRoutine({id : routineId});
+                 
+                    const MatchingActivities = UpdatedRoutineActivities.filter(activity => activity.activityId === activityId);
+                    
+
+
+                    if (MatchingActivities.length){
+                        res.status(401)
+                        next({name:"Routine Id Error" , message: "Your Id does not match this routine" })
+                    }
+            
+                    else{
+                        const newActivityRoutine = await addActivityToRoutine({routineId, activityId, count, duration});
+                    res.send(newActivityRoutine);
+            
+                    }
+                } catch (error) {
+                    next(error)
+                }
+                });  
+        
 
 module.exports = routinesRouter;

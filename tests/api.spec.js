@@ -200,7 +200,7 @@ describe('API', () => {
         routineToCreateAndUpdate = respondedRoutine;
       });
     });
-    xdescribe('DELETE /routines/:routineId (**)', () => {
+    describe('DELETE /routines/:routineId (**)', () => {
       it('Hard deletes a routine. Makes sure to delete all the routineActivities whose routine is the one being deleted.', async () => {
         const {data: deletedRoutine} = await axios.delete(`${API_URL}/api/routines/${routineToCreateAndUpdate.id}`, { headers: {'Authorization': `Bearer ${token}`} });
         const shouldBeDeleted = await getRoutineById(deletedRoutine.id);
@@ -210,7 +210,7 @@ describe('API', () => {
         expect(shouldBeDeleted).toBeFalsy();
       });
     });
-    xdescribe('POST /routines/:routineId/activities', () => {
+    describe('POST /routines/:routineId/activities', () => {
       let newRoutine
       it('Attaches a single activity to a routine.', async () => {
         newRoutine = await createRoutine({creatorId: registeredUser.id, name: 'Pull Ups', goal: '10 pull ups'})
