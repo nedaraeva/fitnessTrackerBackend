@@ -163,7 +163,7 @@ describe('API', () => {
     let routineToCreateAndUpdate = {isPublic: true, name: 'Elliptical Day', goal: 'Work on that Elliptical!'};
     let routineToFail = {isPublic: false, name: 'Elliptical Day 2', goal: 'Work on that Elliptical... again!'};
     const newRoutineData = {isPublic: false, name: 'Elliptical Day Private', goal: 'Work on that Elliptical, yet again!'}
-    xdescribe('GET /routines', () => {
+    describe('GET /routines', () => {
       it('Returns a list of public routines, includes the activities with them', async () => {
         const publicRoutinesFromDB = await getAllPublicRoutines();
         const {data: publicRoutinesFromAPI} = await axios.get(`${API_URL}/api/routines`);
@@ -171,7 +171,7 @@ describe('API', () => {
       });
     });
     
-    xdescribe('POST /routines (*)', () => {
+    describe('POST /routines (*)', () => {
       it('Creates a new routine, with the creatorId matching the logged in user', async () => {
         const {data: respondedRoutine} = await axios.post(`${API_URL}/api/routines`, routineToCreateAndUpdate, { headers: {'Authorization': `Bearer ${token}`} });
         
@@ -192,7 +192,7 @@ describe('API', () => {
         expect(noLoggedInUserErrResp.data).toBeTruthy();
       });
     });
-    xdescribe('PATCH /routines/:routineId (**)', () => {
+    describe('PATCH /routines/:routineId (**)', () => {
       it('Updates a routine, notably changing public/private, the name, or the goal', async () => {
         const {data: respondedRoutine} = await axios.patch(`${API_URL}/api/routines/${routineToCreateAndUpdate.id}`, newRoutineData, { headers: {'Authorization': `Bearer ${token}`} });
         expect(respondedRoutine.name).toEqual(newRoutineData.name);
