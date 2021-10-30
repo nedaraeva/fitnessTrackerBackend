@@ -15,7 +15,7 @@ routine_activitiesRouter.patch("/:routineActivityId", requireuser, async (req, r
 
     try {
         const UpdateRoutineActivities = await getRoutineActivityById (routineActivityId);
-        console.log ("!!", UpdateRoutineActivities.routineId);
+      
         const Routine =  await getRoutineById (UpdateRoutineActivities.routineId)
 
     if (creatorId !== Routine.creatorId){
@@ -42,7 +42,7 @@ routine_activitiesRouter.patch("/:routineActivityId", requireuser, async (req, r
 
         try {
             const UpdateRoutineActivities = await getRoutineActivityById (routineActivityId);
-            console.log ("!!", UpdateRoutineActivities.routineId);
+           
             const Routine =  await getRoutineById (UpdateRoutineActivities.routineId)
     
         if (creatorId !== Routine.creatorId){

@@ -53,12 +53,21 @@ routinesRouter.post('/', requireuser, async (req, res, next) => {
         }
         });  
 
-        routinesRouter.delete('/:routineId', async (req, res, next) => {
+        routinesRouter.delete('/:routineId', requireuser, async (req, res, next) => {
             const { routineId } = req.params;
             
             try {
+                const routinestoUpdate = await getRoutineById (routineId);
+                if (creatorId !== routinestoUpdate.creatorId){
+                    res.status(401)
+                    next({name:"Routine Id Error" , message: "Your Id does not match this routine" })
+                }
+        
+                else{
+                     
                 const ReplacedRoutine = await destroyRoutine(routineId);
                 res.send(ReplacedRoutine);
+            }
             } catch (error) {
                 next(error)
             }
