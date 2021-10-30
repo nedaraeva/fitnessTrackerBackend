@@ -1,6 +1,6 @@
 // build and export your unconnected client here
 const { Client } = require('pg'); 
-const CONNECTION_STRING = process.env.DATABASE_URL || "postgres://localhost:5432/phenomena-dev";
+const CONNECTION_STRING = process.env.DATABASE_URL || "postgres://localhost:5432/fitness-dev";
 
 // Create the client using new Client(CONNECTION_STRING)
 const client = new Client({
